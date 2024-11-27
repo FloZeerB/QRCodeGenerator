@@ -1,0 +1,213 @@
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  padding: 0 10px;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #7e1717;
+  overflow: hidden; /* Empêche le défilement */
+}
+
+.wrapper {
+  height: 450px; /* Augmenter la hauteur de la zone blanche */
+  max-width: 500px; /* Augmenter la largeur de la zone blanche */
+  background: #fff;
+  border-radius: 10px; /* Coins arrondis de la zone */
+  padding: 30px 25px 20px;
+  transition: height 0.2s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.wrapper.active {
+  height: 600px; /* Hauteur augmentée pour tenir un QR Code plus grand */
+}
+
+header h1 {
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+}
+
+header p {
+  margin-top: 5px;
+  color: #575757;
+  font-size: 16px;
+  text-align: center;
+}
+
+.wrapper .form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Ajouter de l'espace entre les éléments */
+}
+
+.form :where(input, button) {
+  width: 100%;
+  height: 55px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  transition: 0.1s ease;
+}
+
+.form input {
+  font-size: 18px;
+  padding: 0 17px;
+  border: 1px solid #999;
+}
+
+.form input:focus {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.13);
+}
+
+.form input::placeholder {
+  color: #999;
+}
+
+.form button {
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  background: #e61818;
+}
+
+.qr-code {
+  opacity: 0;
+  display: flex;
+  padding: 33px 0;
+  border-radius: 5px;
+  align-items: center;
+  pointer-events: none;
+  justify-content: center;
+  border: none; /* Enlever la bordure une fois le QR code généré */
+}
+
+.wrapper.active .qr-code {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.5s 0.05s ease;
+}
+
+.qr-container {
+  position: relative;
+  display: inline-block;
+  width: 300px; /* Augmenter la taille du QR Code */
+  height: 300px;
+  border-radius: 15px; /* Coins arrondis du QR Code */
+  overflow: hidden; /* Assure que l'image reste à l'intérieur du carré */
+  background: #fff;
+  border: 2px solid #e61818; /* Bordure rouge autour du QR Code */
+}
+
+.qr-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Remplir le carré tout en gardant l'aspect */
+}
+
+#center-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px; /* Taille de l'image centrale */
+  height: 120px; /* Taille de l'image centrale */
+  object-fit: cover; /* Redimensionner l'image sans la déformer */
+  border-radius: 15px; /* Coins arrondis de l'image centrale */
+  border: 3px solid #fff; /* Bordure blanche autour de l'image centrale */
+  display: none; /* Cacher l'image par défaut */
+}
+
+.qr-container img:not([src=""]) ~ #center-img {
+  display: block; /* Afficher l'image seulement si une image a été chargée */
+}
+#by-flo {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 500;
+  text-align: center;
+}
+@media (max-width: 430px) {
+  .wrapper {
+    height: 450px;
+    padding: 25px;
+  }
+
+  .wrapper.active {
+    height: 550px;
+  }
+
+  header p {
+    color: #696969;
+  }
+
+  .form :where(input, button) {
+    height: 52px;
+  }
+
+  .qr-container {
+    width: 250px; /* Réduire la taille du QR Code pour les petits écrans */
+    height: 250px; /* Réduire la taille du QR Code pour les petits écrans */
+  }
+
+  .qr-container img {
+    width: 100%;
+    height: 100%;
+  }
+  
+}
+
+/* Flocons de neige */
+.falling-snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.snowflake {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url('https://i.imgur.com/gpBNImz.png');
+  background-size: cover;
+  animation: fall 7s linear infinite, spin 5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  0% {
+    top: -10%;
+    transform: translateX(0);
+  }
+  100% {
+    top: 110%;
+    transform: translateX(50px);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
